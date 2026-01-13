@@ -2,7 +2,7 @@
     <a href="/promessometro/admin/states" class="btn-primary">← Voltar para os estados</a>
 </div>
 
-<form action="/admin/states/store" method="POST" class="admin-form">
+<form action="/promessometro/admin/states/new" method="POST" class="admin-form">
 
     <div class="form-group">
         <label for="name">Estado</label>

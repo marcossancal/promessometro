@@ -7,26 +7,21 @@
         <tr>
             <th>Id</th>
             <th>Estado</th>
+            <th>UF</th>
             <th>Ações</th>
         </tr>
     </thead>
     <tbody>
     <?php foreach ($states as $c): ?>
         <tr>
+            <td><?= htmlspecialchars($c['id']) ?></td>
             <td><?= htmlspecialchars($c['name']) ?></td>
-            <td><?= htmlspecialchars($c['position']) ?></td>
-            <td><?= htmlspecialchars($c['party']) ?></td>
-            <td><?= htmlspecialchars($c['state']) ?></td>
-            <td>
-                <span class="badge <?= $c['active'] ? 'active' : 'inactive' ?>">
-                    <?= $c['active'] ? 'Active' : 'Inactive' ?>
-                </span>
-            </td>
+            <td><?= htmlspecialchars($c['code']) ?></td>
             <td class="table-actions">
-                <a href="/admin/candidates/edit/<?= $c['id'] ?>" class="edit">Edit</a>
-                <a href="/admin/candidates/delete/<?= $c['id'] ?>"
+                <a href="/promessometro/admin/states/edit/<?= $c['id'] ?>" class="edit">Edit</a>
+                <a href="/promessometro/admin/states/delete/<?= $c['id'] ?>"
                    class="delete"
-                   onclick="return confirm('Disable this candidate?')">
+                   onclick="return confirm('Deletar o estado?')">
                    Disable
                 </a>
             </td>

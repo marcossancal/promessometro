@@ -18,11 +18,11 @@
             <td><?= htmlspecialchars($c['name']) ?></td>
             <td><?= htmlspecialchars($c['status']) ?></td>
             <td class="table-actions">
-                <a href="/promessometro/admin/parties/edit/<?= $c['id'] ?>" class="edit">Edit</a>
+                <a href="/promessometro/admin/parties/edit/<?= $c['id'] ?>" class="edit">Editar</a>
                 <a href="/promessometro/admin/parties/delete/<?= $c['id'] ?>"
                    class="delete"
-                   onclick="return confirm('Disable this candidate?')">
-                   Disable
+                   onclick="return confirm('Deletar esse partido?')">
+                   Deletar
                 </a>
             </td>
         </tr>

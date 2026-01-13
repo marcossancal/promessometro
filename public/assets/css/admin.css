@@ -13,6 +13,10 @@ body {
     background: #111827;
     color: #fff;
     padding: 20px;
+    position: fixed;
+  top: 0;
+  left: 0;
+  height: -webkit-fill-available;
 }
 
 .sidebar a {
@@ -40,10 +44,14 @@ body {
 .main-content {
     flex: 1;
     background: #f3f4f6;
+    width: calc(100% - 280px);
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .content {
-    padding: 20px;
+  padding: 20px;
 }
 
 .user-menu {

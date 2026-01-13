@@ -2,7 +2,7 @@
     <a href="/promessometro/admin/candidates" class="btn-primary">← Voltar para os candidatos</a>
 </div>
 
-<form action="/admin/candidates/store" method="POST" class="admin-form">
+<form action="/promessometro/admin/candidates/new" method="POST" class="admin-form">
 
     <div class="form-group">
         <label for="name">Nome do candidato</label>

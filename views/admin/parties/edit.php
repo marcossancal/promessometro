@@ -2,16 +2,15 @@
     <a href="/promessometro/admin/parties" class="btn-primary">← Voltar para os partidos</a>
 </div>
 
-<form action="/promessometro/admin/parties/edit" method="POST" class="admin-form">
-
+<form action="/promessometro/admin/parties/edit/<?=$party['id']?>" method="POST" class="admin-form">
     <div class="form-group">
         <label for="name">Nome do partido</label>
-        <input type="text" name="name" id="name" required>
+        <input type="text" name="name" id="name" value="<?=$party['name'];?>" required>
     </div>
 
     <div class="form-group checkbox">
         <label>
-            <input type="checkbox" name="status" value="1" checked>
+        <input type="checkbox" name="status" value="1" <?= ($party['status'] == '1') ? 'checked' : '' ?>>
             Ativo
         </label>
     </div>

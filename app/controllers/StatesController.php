@@ -1,6 +1,11 @@
 <?php
 class StatesController {
 
+    protected static function model()
+    {
+        return new States();
+    }
+
     public static function index() {
         Auth::check();
         $states = (new States())->all();
@@ -48,27 +53,48 @@ class StatesController {
     public static function store() {
         $data = [
         'name' => $_POST['name'],
-        'party' => $_POST['party'] ?? null,
-        'state_id' => $_POST['state_id'],
-        'position_id' => $_POST['position_id'],
-        'active' => isset($_POST['active']) ? 1 : 0
+        'code' => $_POST['code'] ?? null,
         ];
         (new States())->create($data);
         Flight::redirect('/admin/states');
         }
 
-        public static function editForm($id) {
-        $candidate = (new States())->find($id);
-        if (!$candidate) Flight::notFound();
-
-        $db = Flight::db();
-        $states = $db->query("SELECT id, name FROM states ORDER BY name")->fetchAll(PDO::FETCH_ASSOC);
-        $positions = $db->query("SELECT id, name FROM positions ORDER BY name")->fetchAll(PDO::FETCH_ASSOC);
-
-        Flight::render('admin/states/edit', [
-        'candidate' => $candidate,
-        'states' => $states,
-        'positions' => $positions
+        public static function editForm($id)
+    {
+        Auth::check();
+        $states = self::model()->find($id);
+        if (!$states) {
+            Flight::notFound();
+        }
+        $content = Flight::view()->fetch('admin/states/edit', [
+            'states' => $states
+        ]);
+        Flight::render('layouts/admin', [
+            'title'   => 'Editar cargo',
+            'content' => $content
         ]);
     }
+
+       public static function update($id)
+    {
+        Auth::check();
+        $data = [
+            'name'   => trim($_POST['name'] ?? ''),
+            'code' => trim($_POST['code'] ?? '')
+        ];
+        if ($data['name'] === '') {
+            Flight::redirect("/admin/states/edit/$id");
+            return;
+        }
+        self::model()->update($id, $data);
+        Flight::redirect('/admin/states');
+    }
+
+       public static function delete($id)
+    {
+        Auth::check();
+        self::model()->delete($id);
+        Flight::redirect('/admin/states');
+    }
+
 }
