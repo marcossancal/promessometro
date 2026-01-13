@@ -1,0 +1,13 @@
+{
+    "name": "promessometro/admin",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Promessometro\\Admin\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "mikecao/flight": "^3.17"
+    }
+}
