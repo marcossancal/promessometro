@@ -1,5 +1,10 @@
 <?php
 class PromisesController {
+    protected static function model()
+    {
+        return new Promises();
+    }
+
 
     public static function index() {
         Auth::check();
@@ -16,6 +21,8 @@ class PromisesController {
         'content' => $content
         ]);
     }
+
+
 public static function createForm() {
     Auth::check();
 
@@ -37,28 +44,74 @@ public static function createForm() {
 
     public static function store() {
         $data = [
-        'name' => $_POST['name'],
-        'party' => $_POST['party'] ?? null,
-        'state_id' => $_POST['state_id'],
-        'position_id' => $_POST['position_id'],
-        'active' => isset($_POST['active']) ? 1 : 0
+        'candidate_id' => $_POST['candidate_id'],
+        'title' => $_POST['title'],
+        'description' => $_POST['description'],
+        'source' => $_POST['source'],
+        'status' => $_POST['status'],
+        'approved' => $_POST['approved']
         ];
         (new Promises())->create($data);
         Flight::redirect('/admin/promises');
         }
 
-        public static function editForm($id) {
-        $candidate = (new Promises())->find($id);
-        if (!$candidate) Flight::notFound();
+ public static function editForm($id)
+{
+    Auth::check();
 
-        $db = Flight::db();
-        $states = $db->query("SELECT id, name FROM states ORDER BY name")->fetchAll(PDO::FETCH_ASSOC);
-        $positions = $db->query("SELECT id, name FROM positions ORDER BY name")->fetchAll(PDO::FETCH_ASSOC);
+    // busca a promessa pelo ID
+    $promise = (new Promises())->find($id);
 
-        Flight::render('admin/promises/edit', [
-        'candidate' => $candidate,
-        'states' => $states,
-        'positions' => $positions
-        ]);
+    if (!$promise) {
+        Flight::redirect('/admin/promises');
+        return;
+    }
+
+    // lista de candidatos
+    $candidates = (new Candidates())->all();
+
+    // captura o conteúdo da view
+    $content = Flight::view()->fetch('admin/promises/edit', [
+        'promise'    => $promise,
+        'candidates' => $candidates
+    ]);
+
+    // renderiza dentro do layout admin
+    Flight::render('layouts/admin', [
+        'title'   => 'Editar promessa',
+        'content' => $content
+    ]);
+}
+
+public static function update($id)
+{
+    Auth::check();
+
+    $data = [
+        'candidate_id' => (int) ($_POST['candidate_id'] ?? 0),
+        'title'        => trim($_POST['title'] ?? ''),
+        'description'  => trim($_POST['description'] ?? ''),
+        'source'       => trim($_POST['source'] ?? ''),
+        'status'       => trim($_POST['status'] ?? 'pending'),
+        'approved'     => isset($_POST['approved']) ? 1 : 0
+    ];
+
+    // validações básicas
+    if ($data['candidate_id'] === 0 || $data['title'] === '') {
+        Flight::redirect("/admin/promises/edit/$id");
+        return;
+    }
+
+    self::model()->update($id, $data);
+
+    Flight::redirect('/admin/promises');
+}
+
+
+        public static function delete($id)
+    {
+        Auth::check();
+        self::model()->delete($id);
+        Flight::redirect('/admin/promises');
     }
 }

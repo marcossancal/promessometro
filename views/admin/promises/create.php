@@ -1,8 +1,8 @@
 <div class="page-actions">
-    <a href="/promessometro/admin/promises" class="btn-primary">← VOltar para as promessas</a>
+    <a href="/promessometro/admin/promises" class="btn-primary">← Voltar para as promessas</a>
 </div>
 
-<form action="/admin/promises/store" method="POST" class="admin-form">
+<form action="/promessometro/admin/promises/new" method="POST" class="admin-form">
 
     <div class="form-group">
         <label for="candidate_id">Candidato</label>
