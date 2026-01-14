@@ -17,17 +17,17 @@
     <?php foreach ($candidates as $c): ?>
         <tr>
             <td><?= htmlspecialchars($c['name']) ?></td>
-            <td><?= htmlspecialchars($c['position']) ?></td>
-            <td><?= htmlspecialchars($c['party']) ?></td>
-            <td><?= htmlspecialchars($c['state']) ?></td>
+            <td><?= htmlspecialchars($c['position_name']) ?></td>
+            <td><?= htmlspecialchars($c['party_name']) ?></td>
+            <td><?= htmlspecialchars($c['state_name']) ?></td>
             <td>
                 <span class="badge <?= $c['active'] ? 'active' : 'inactive' ?>">
                     <?= $c['active'] ? 'Active' : 'Inactive' ?>
                 </span>
             </td>
             <td class="table-actions">
-                <a href="/admin/candidates/edit/<?= $c['id'] ?>" class="edit">Edit</a>
-                <a href="/admin/candidates/delete/<?= $c['id'] ?>"
+                <a href="/promessometro/admin/candidates/edit/<?= $c['id'] ?>" class="edit">Edit</a>
+                <a href="/promessometro/admin/candidates/delete/<?= $c['id'] ?>"
                    class="delete"
                    onclick="return confirm('Disable this candidate?')">
                    Disable
